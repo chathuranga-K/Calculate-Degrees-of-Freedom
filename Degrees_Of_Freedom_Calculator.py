@@ -17,7 +17,7 @@ class GrublersFormula:
 
         self.dof: int = 0
         self.sigma_list :list = []
-        self.jointTypes :dict = {}
+        self.jointTypes :list = []
         self.diagram_list :dict = {}
 
 
@@ -47,7 +47,7 @@ class GrublersFormula:
                 else:
                     print("Please enter a valid bodyType!")
                     continue
-            except ValueError,IndexError:
+            except ValueError, IndexError:
                 print("Please enter a valid bodyType!")
                 continue
             break # break the main loop
@@ -55,20 +55,28 @@ class GrublersFormula:
 
     def Diagram_DegreesOfFreedom(self):
         # Assign Joint Types
-        self.jointTypes = {
-            "R" :   "Revolute",
-            "P" :   "Prismatic",
-            "H" :   "Helical",
-            "C" :   "Cylindrical",
-            "U" :   "Universal",
-            "S" :   "Spherical"
-        }
+        self.jointTypes = ["Revolute",
+                           "Prismatic",
+                           "Helical",
+                           "Cylindrical",
+                           "Universal",
+                           "Spherical"]
 
-        # Assign D
+        # Create & Initialize Keys & Values
         self.diagram_list[self.jointTypes] = {
-            "value_f"       : 0,
+            "Value_f"       : 0,
             "Planar_body"   : 0,
             "Spatial_body"  : 0
+        }
+
+        # Assign each item into dictionary
+        self.diagram_list[self.jointTypes] = {
+            self.jointTypes[0] : {"Value_f": 1,   "Planar_body": 2,   "Spatial_body": 5},
+            self.jointTypes[1] : {"Value_f": 1,   "Planar_body": 2,   "Spatial_body": 5},
+            self.jointTypes[2] : {"Value_f": 1,   "Spatial_body": 5},
+            self.jointTypes[3] : {"Value_f": 2,   "Spatial_body": 4},
+            self.jointTypes[4] : {"Value_f": 2,   "Spatial_body": 4},
+            self.jointTypes[5] : {"Value_f": 3,   "Spatial_body": 3},
         }
 
 
